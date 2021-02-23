@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNOWMAN</title>
+    <style>
+
+        canvas{
+            position: absolute;
+        }
+
+        html body{
+            margin: 0;
+            padding: 0;
+            height: 1000%;
+            background: rgb(60, 145, 214);
+        }
+
+        .body{
+            width: 200px;
+            height: 200px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            margin-top: 300px;
+            z-index: 20;
+            box-shadow: inset -13px -8px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .body::before{
+            width: 140px;
+            height: 140px;
+            background: #fff;
+            content: "";
+            position: relative;
+            display: inline-block;
+            top: -110px;
+            left: 28px;
+            border-radius: 50%;
+            z-index: 30;
+            box-shadow: inset -13px -8px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .body .head{
+            position: relative;
+            display: inline-block;
+            border-style: solid;
+            border-width: 8px 41px 8px 0px;
+            border-color: transparent #fa9a20 transparent transparent;
+            top: -158px;
+            left: -95px;
+            z-index: 30;
+            transform: rotate(10deg);
+        }
+    
+        .body .head::before{
+            content: "";
+            position: absolute;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            top: -31px;
+            left: 10px;
+        }
+
+        .body .head::after{
+            content: "";
+            position: absolute;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            top: -36px;
+            left: 37px;
+        }
+
+        .body .hat{
+            position: absolute;
+            border-top: 56px solid rgb(37, 37, 37);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 27px solid rgb(246, 62, 62);
+            width: 55px;
+            height: 0px;
+            top: -179px;
+            left: 78px;
+            z-index: 30;
+            transform: rotate(10deg);
+        }
+
+        .body .scarf{
+            position: absolute;
+            border-bottom: 25px solid rgb(243, 77, 77);
+            width: 133px;
+            top: 4px;
+            left: 37px;
+            z-index: 30;
+            border-radius: 50% 100% 10% 50%;
+        }
+
+        .body .scarf::after{
+            display: block;
+            content: "";
+            position: absolute;
+            width: 74px;
+            height: 22px;
+            top: 30px;
+            left: 60px;
+            background: rgb(243, 77, 77);
+            transform: rotate(86deg);
+            border-radius: 50% 50% 50% 50%;
+        }
+
+        .body .buttons{
+            position: relative;
+            width: 8px;
+            height: 8px;
+            background: #2c3e50;
+            top: -50px;
+            left: 50px;
+            border-radius: 50%;
+        }
+
+        .body .buttons::after{
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #2c3e50;
+            top: -30px;
+            left: 5px;
+            border-radius: 50%;
+        }
+
+        .body .buttons::before{
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #2c3e50;
+            top: 30px;
+            left: 5px;
+            border-radius: 50%;
+        }
+
+        .body .left-hand{
+            width: 60px;
+            position: absolute;
+            border-bottom: 7px solid rgb(128, 84, 6, 1);
+            top: 90px;
+            left: -58px;
+            transform: rotate(10deg);
+        }
+
+        .body .left-hand::before{
+            position: absolute;
+            content: "";
+            width: 40px;
+            border-bottom: 7px solid rgb(128, 84, 6, 1);
+            top: -12px;
+            left: -5px;
+            transform: rotate(40deg);
+
+        }
+
+        .body .right-hand{
+            width: 60px;
+            position: absolute;
+            border-bottom: 7px solid rgb(128, 84, 6, 1);
+            top: 90px;
+            right: -58px;
+            transform: rotate(-10deg);
+        }
+
+        .body .right-hand::before{
+            position: absolute;
+            content: "";
+            width: 40px;
+            border-bottom: 7px solid rgb(128, 84, 6, 1);
+            top: -12px;
+            right: -5px;
+            transform: rotate(-40deg);
+        }
+
+        .body .shadow{
+            position: absolute;
+            width: 190px;
+            background: rgba(0, 0, 0, 0.2);
+            height: 30px;
+            border-radius: 50%;
+            bottom: -30px;
+            right: -15x;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+    
+    <div class="body"> 
+        <div class="head"></div>
+        <div class="hat"></div>
+        <div class="scarf"></div>
+        <div class="buttons"></div>
+        <div class="left-hand"></div>
+        <div class="right-hand"></div>
+        <div class="shadow"></div>
+    </div>
+
+    <script type="text/javascript">
+        // <![CDATA[
+        var speed=33; // lower number for faster
+        var flakes=1000; // number of flakes
+        var colour="#fff"; // colour of flakes
+        var slush=1000; // set to '0' for no slush or otherwise set to height at which slush melts
+        /***************************\
+        *     Let It Snow Effect    *
+        *(c)2004-11 mf2fm web-design*
+        *  http://www.mf2fm.com/rv  *
+        * DON'T EDIT BELOW THIS BOX *
+        \***************************/
+        
+        var flks=new Array();
+        var flkx=new Array();
+        var flky=new Array();
+        var fldy=new Array();
+        var slss=new Array();
+        var slsh=new Array();
+        var swide, shigh, boddie;
+        window.onload=function() { if (document.getElementById) {
+          boddie=document.createElement("div");
+          boddie.style.position="fixed";
+          boddie.style.top="0px";
+          boddie.style.left="0px";
+          boddie.style.width="1px";
+          boddie.style.height="1px";
+          boddie.style.overflow="visible";
+          boddie.style.backgroundColor="transparent";
+          document.body.appendChild(boddie);
+          set_width();
+          for (var i=0; i<flakes; i++) {
+            flks[i]=createDiv(3, 3, colour);
+            flkx[i]=3*Math.floor(Math.random()*swide/3);
+            flky[i]=Math.floor(Math.random()*shigh);
+            fldy[i]=2+Math.floor(Math.random()*4);
+            flks[i].style.left=flkx[i]+"px";
+            flks[i].style.top=flky[i]+"px";
+            boddie.appendChild(flks[i]);
+          }
+          setInterval("let_it_snow()", speed);
+        }}
+        function createDiv(height, width, colour) {
+          var div=document.createElement("div");
+          div.style.position="absolute";
+          div.style.height=height+"px";
+          div.style.width=width+"px";
+          div.style.overflow="hidden";
+          div.style.backgroundColor=colour;
+          return (div);
+        }
+        window.onresize=set_width;
+        function set_width() {
+          var sw_min=999999;
+          var sh_min=999999;
+          if (document.documentElement && document.documentElement.clientWidth) {
+            if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+            if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+          }
+          if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
+            if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+            if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+          }
+          if (document.body.clientWidth) {
+            if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+            if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+          }
+          if (sw_min==999999 || sh_min==999999) {
+            sw_min=800;
+            sh_min=600;
+          }
+          swide=sw_min-3;
+          shigh=sh_min;
+          if (slush) {
+            if (swide/3>slss.length) for (i=slss.length; i<swide/3; i++) {
+              if (!slsh[i]) slsh[i]=3;
+              slss[i]=createDiv(slsh[i], 3, colour);
+              boddie.appendChild(slss[i]);
+            }
+            for (i=0; i<swide/3; i++) {
+              slss[i].style.height=slsh[i]+"px";
+              slss[i].style.top=shigh-slsh[i]+"px";
+              slss[i].style.left=3*i+"px";
+            }
+            if (i<slss.length && slss[i].style.left!="-3px") for (; i<slss.length; i++) slss[i].style.left="-3px";
+          }
+        }
+        function let_it_snow(c) {
+          var i, x, o=0, z=0;
+          for (i=0; i<flakes; i++) {
+            flky[i]+=fldy[i];
+         x=Math.floor(flkx[i]/3);
+            if (slush) {
+              o+=slsh[x];
+              if (flky[i]>=shigh-slsh[x]) {
+                if (x<swide && slsh[x]>slsh[x+1]+3) x++;
+                else if (x>0 && slsh[x]>slsh[x-1]+3) x--;
+                slss[x].style.top=shigh-(slsh[x]+=3)+"px";
+                slss[x].style.height=slsh[x]+"px";
+          flky[i]=shigh;
+           }
+            }
+            if (flky[i]>=shigh || flkx[i]>swide) {
+           flky[i]=0;
+           fldy[i]=2+Math.floor(Math.random()*4);
+           flkx[i]=3*Math.floor(Math.random()*swide/3);
+           flks[i].style.left=flkx[i]+"px";
+           z++;
+         }
+         flks[i].style.top=flky[i]+"px";
+          }
+          if (o>flakes*slush) for (i=0; i<slsh.length; i++) if (slsh[i]>3) slsh[i]--;
+          if (z || o>flakes*slush) set_width();
+        }
+        // ]]>
+        </script>
+        
+
+</body>
+</html>

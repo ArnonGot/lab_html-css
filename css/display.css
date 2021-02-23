@@ -1,0 +1,19 @@
+div {
+    background: blue;
+    display: inline; /*change block to inline*/
+}
+
+.visibility {
+    visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+
+span {
+    background: red;
+    display: block; /*change inline to block*/
+    /* display: none; = delete */
+}

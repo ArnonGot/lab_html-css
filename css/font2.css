@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Kanit;
+    src: url(Kanit/Kanit-ExtraBoldItalic/fonts/Kanit-ExtraBoldItalic.woff);
+}
+
+body {
+    font-family: Kanit;
+}

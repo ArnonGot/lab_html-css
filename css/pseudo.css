@@ -1,0 +1,4 @@
+
+p:first-child::first-line {
+    font-size: 36px;
+}

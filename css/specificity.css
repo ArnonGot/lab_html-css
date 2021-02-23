@@ -1,0 +1,22 @@
+/*
+
+    CSS Specificity
+
+    - Inline styles - <header style="color: #000;"></header>
+    - IDs - #content
+    - Classes, artributes and pseudo-classes - :hover, :focus etc.
+    - Elements and pseudo-elements - such as h1, div, :before and :after.
+
+*/
+
+#heading {
+    color: red;
+}
+
+.heading {
+    color: green;
+}
+
+h1 {
+    color: purple;
+}

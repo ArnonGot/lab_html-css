@@ -1,0 +1,16 @@
+/*
+
+    : Pseudo-classes
+    :: Pseudo-elements
+
+*/
+
+div {
+    width: 100px;
+    height: 100px;
+    background: black;
+}
+
+div:hover {
+    background: red;
+}

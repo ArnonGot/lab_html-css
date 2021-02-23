@@ -1,0 +1,8 @@
+.ex1 {
+    width: 1000px;
+    border: 2px solid green; 
+}
+.ex2 {
+    max width: 1000px;
+    border: 2px solid red; 
+}

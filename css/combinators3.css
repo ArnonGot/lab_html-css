@@ -1,0 +1,15 @@
+/*
+    CSS - Combinators
+
+    - Descendent Selector (space)
+    - Child Selector (>)
+    - Adjacent Sibling Selector (+)
+    - General Subling Selector (~)
+
+*/
+
+div + p {
+
+    background: yellow;
+
+}

@@ -1,0 +1,10 @@
+/*
+
+    : Pseudo-classes
+    :: Pseudo-elements
+
+*/
+
+p::first-line {
+    font-size: 36px;
+}

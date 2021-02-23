@@ -1,0 +1,10 @@
+div {
+    width: 66px;
+    height: 66px; 
+    border: 3px solid #008000;
+    background-color: red; 
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+}
